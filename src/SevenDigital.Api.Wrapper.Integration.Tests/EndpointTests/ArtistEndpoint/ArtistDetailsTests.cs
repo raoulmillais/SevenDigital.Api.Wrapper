@@ -10,8 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = Api<Artist>
-				.Create
+			var artist = FluentApiFactory.CreateFluentApi<Artist>()
 				.WithArtistId(1)
 				.Please();
 
@@ -29,8 +28,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 
 			var reset = new AutoResetEvent(false);
 
-			   Api<Artist>
-				.Create
+			FluentApiFactory.CreateFluentApi<Artist>()
 				.WithArtistId(1)
 				.PleaseAsync(payload =>
 					{

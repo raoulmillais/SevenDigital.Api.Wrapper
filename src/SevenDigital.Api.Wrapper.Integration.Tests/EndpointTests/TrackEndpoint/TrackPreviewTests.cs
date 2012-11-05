@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Schema.TrackEndpoint;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {
@@ -9,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_redirect_false()
 		{
-			TrackPreview track = Api<TrackPreview>.Create
+			TrackPreview track = FluentApiFactory.CreateFluentApi<TrackPreview>()
 				.WithParameter("trackid", "123")
 				.WithParameter("redirect", "false")
 				.Please();

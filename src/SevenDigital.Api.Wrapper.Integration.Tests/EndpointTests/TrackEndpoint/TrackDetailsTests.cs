@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Schema.TrackEndpoint;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {
@@ -9,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			Track track = Api<Track>.Create
+			Track track = FluentApiFactory.CreateFluentApi<Track>()
 				.ForTrackId(12345)
 				.Please();
 

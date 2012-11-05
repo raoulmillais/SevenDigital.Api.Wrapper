@@ -2,6 +2,7 @@
 using System.Net;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.OAuth;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 {
@@ -13,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.OAuth
 		{
 			try 
 			{
-				OAuthRequestToken oAuthRequestToken = Api<OAuthRequestToken>.Create.Please();
+				OAuthRequestToken oAuthRequestToken = FluentApiFactory.CreateFluentApi<OAuthRequestToken>().Please();
 				Assert.That(oAuthRequestToken.Secret, Is.Not.Empty);
 				Assert.That(oAuthRequestToken.Token, Is.Not.Empty);
 			} 

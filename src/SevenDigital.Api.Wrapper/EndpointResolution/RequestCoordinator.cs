@@ -5,15 +5,15 @@ using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
-	public class RequestCoordinator : IRequestCoordinator
+	public class RequestCoordinator<T> : IRequestCoordinator<T>
 	{
 		private readonly IUrlSigner _urlSigner;
 		private readonly IOAuthCredentials _oAuthCredentials;
-		private readonly IApiUri _apiUri;
+		private readonly IApiUri<T> _apiUri;
 		
 		public IHttpClient HttpClient { get; set; }
 
-		public RequestCoordinator(IHttpClient httpClient, IUrlSigner urlSigner, IOAuthCredentials oAuthCredentials, IApiUri apiUri)
+		public RequestCoordinator(IHttpClient httpClient, IUrlSigner urlSigner, IOAuthCredentials oAuthCredentials, IApiUri<T> apiUri)
 		{
 			HttpClient = httpClient;
 			_urlSigner = urlSigner;
@@ -26,14 +26,14 @@ namespace SevenDigital.Api.Wrapper.EndpointResolution
 			return ConstructBuilder(endPointInfo).ConstructEndpoint(endPointInfo);
 		}
 
-		private RequestHandler ConstructBuilder(EndPointInfo endPointInfo)
+		private RequestHandler<T> ConstructBuilder(EndPointInfo endPointInfo)
 		{
 			switch (endPointInfo.HttpMethod.ToUpperInvariant())
 			{
 				case "GET":
-					return new GetRequestHandler(_apiUri, _oAuthCredentials, _urlSigner);
+					return new GetRequestHandler<T>(_apiUri, _oAuthCredentials, _urlSigner);
 				case "POST":
-					return new PostRequestHandler(_apiUri, _oAuthCredentials, _urlSigner);
+					return new PostRequestHandler<T>(_apiUri, _oAuthCredentials, _urlSigner);
 				default:
 					throw new NotImplementedException();
 			}

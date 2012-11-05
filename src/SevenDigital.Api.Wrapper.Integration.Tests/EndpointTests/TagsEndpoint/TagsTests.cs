@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Tags;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 {
@@ -10,8 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public void Can_hit_endpoint() 
 		{
-
-			Tags tags = Api<Tags>.Create
+			Tags tags = FluentApiFactory.CreateFluentApi<Tags>()
 				.Please();
 
 			Assert.That(tags, Is.Not.Null);
@@ -23,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TagsEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging() 
 		{
-			Tags artistBrowse = Api<Tags>.Create
+			Tags artistBrowse = FluentApiFactory.CreateFluentApi<Tags>()
 				.WithParameter("page", "2")
 				.WithParameter("pageSize", "20")
 				.Please();

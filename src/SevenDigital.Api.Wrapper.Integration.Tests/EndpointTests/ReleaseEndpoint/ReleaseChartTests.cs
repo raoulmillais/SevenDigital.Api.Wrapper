@@ -2,7 +2,9 @@
 using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Chart;
+using SevenDigital.Api.Schema.LockerEndpoint;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {
@@ -13,7 +15,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ReleaseChart release = Api<ReleaseChart>.Create
+			ReleaseChart release = FluentApiFactory.CreateFluentApi<ReleaseChart>()
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
 				.WithParameter("country", "GB")
@@ -29,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			ReleaseChart artistBrowse = Api<ReleaseChart>.Create
+			ReleaseChart artistBrowse = FluentApiFactory.CreateFluentApi<ReleaseChart>()
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")
@@ -44,8 +46,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_fluent_endpoint() 
 		{
-			var release = Api<ReleaseChart>
-							.Create
+			var release = FluentApiFactory.CreateFluentApi<ReleaseChart>()
 							.WithToDate(new DateTime(2011, 01, 31))
 							.WithPeriod(ChartPeriod.Week)
 							.Please();
@@ -55,7 +56,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 			Assert.That(release.Type, Is.EqualTo(ChartType.album));
 			Assert.That(release.FromDate, Is.EqualTo(new DateTime(2011, 01, 25)));
 			Assert.That(release.ToDate, Is.EqualTo(new DateTime(2011, 01, 31)));
-			Assert.That(release.ChartItems.FirstOrDefault().Release, Is.Not.Null);
+			Assert.That(release.ChartItems.First().Release, Is.Not.Null);
 		}
 	}
 }

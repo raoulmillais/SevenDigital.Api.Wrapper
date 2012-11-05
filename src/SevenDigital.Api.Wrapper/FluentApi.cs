@@ -14,10 +14,10 @@ namespace SevenDigital.Api.Wrapper
 	public class FluentApi<T> : IFluentApi<T> where T : class
 	{
 		private readonly EndPointInfo _endPointInfo = new EndPointInfo();
-		private readonly IRequestCoordinator _requestCoordinator;
+		private readonly IRequestCoordinator<T> _requestCoordinator;
 		private readonly IResponseParser<T> _parser;
 
-		public FluentApi(IRequestCoordinator requestCoordinator)
+		public FluentApi(IRequestCoordinator<T> requestCoordinator)
 		{
 			_requestCoordinator = requestCoordinator;
 
@@ -60,12 +60,12 @@ namespace SevenDigital.Api.Wrapper
 
 		}
 
-		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri apiUri)
-			: this(new RequestCoordinator(new GzipHttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
+		public FluentApi(IOAuthCredentials oAuthCredentials, IApiUri<T> apiUri)
+			: this(new RequestCoordinator<T>(new GzipHttpClient(), new UrlSigner(), oAuthCredentials, apiUri)) { }
 
 		public FluentApi()
-			: this(new RequestCoordinator(new GzipHttpClient(), new UrlSigner(), 
-				EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance)) 
+			: this(new RequestCoordinator<T>(new GzipHttpClient(), new UrlSigner(), 
+				EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri<T>>.Instance)) 
 			{ }
 
 

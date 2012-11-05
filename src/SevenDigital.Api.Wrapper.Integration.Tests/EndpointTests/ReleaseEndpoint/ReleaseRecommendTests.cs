@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {
@@ -9,7 +10,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ReleaseRecommend release = Api<ReleaseRecommend>.Create
+			ReleaseRecommend release = FluentApiFactory.CreateFluentApi<ReleaseRecommend>()
 				.WithParameter("releaseId", "155408")
 				.WithParameter("country", "GB")
 				.Please();

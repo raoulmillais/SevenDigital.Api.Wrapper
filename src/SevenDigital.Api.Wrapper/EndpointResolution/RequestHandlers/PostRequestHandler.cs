@@ -5,12 +5,12 @@ using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution.RequestHandlers
 {
-	public class PostRequestHandler : RequestHandler
+	public class PostRequestHandler<T> : RequestHandler<T>
 	{
 		private readonly IOAuthCredentials _oAuthCredentials;
 		private readonly IUrlSigner _urlSigner;
 
-		public PostRequestHandler(IApiUri apiUri, IOAuthCredentials oAuthCredentials, IUrlSigner urlSigner) : base(apiUri)
+		public PostRequestHandler(IApiUri<T> apiUri, IOAuthCredentials oAuthCredentials, IUrlSigner urlSigner) : base(apiUri)
 		{
 			_oAuthCredentials = oAuthCredentials;
 			_urlSigner = urlSigner;

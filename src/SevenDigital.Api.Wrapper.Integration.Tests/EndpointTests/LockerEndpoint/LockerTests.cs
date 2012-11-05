@@ -1,7 +1,9 @@
 using System.Configuration;
 using System.Linq;
 using NUnit.Framework;
+using SevenDigital.Api.Schema.Basket;
 using SevenDigital.Api.Schema.LockerEndpoint;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoint
 {
@@ -21,7 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		[Test]
 		public void Should_get_a_users_locker_with_correct_access_credentials()
 		{
-			var locker = Api<Locker>.Create
+			var locker = FluentApiFactory.CreateFluentApi<Locker>()
 				.ForUser(_token, _tokenSecret)
 				.Please();
 
@@ -31,7 +33,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		[Test]
 		public void Should_get_specific_users_release()
 		{
-			var locker = Api<Locker>.Create
+			var locker = FluentApiFactory.CreateFluentApi<Locker>()
 				.ForReleaseId(343418)
 				.ForUser(_token, _tokenSecret)
 				.Please();
@@ -42,7 +44,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.LockerEndpoin
 		[Test]
 		public void Should_get_specific_users_track()
 		{
-			var locker = Api<Locker>.Create
+			var locker = FluentApiFactory.CreateFluentApi<Locker>()
 				.ForReleaseId(343418)
 				.ForTrackId(3846716)
 				.ForUser(_token, _tokenSecret)

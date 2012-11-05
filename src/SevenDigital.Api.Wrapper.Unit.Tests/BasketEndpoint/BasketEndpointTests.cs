@@ -28,5 +28,10 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.BasketEndpoint
 			Assert.That(basketEndpoint.Parameters.Keys.Contains("trackId"), Is.False);
 			Assert.That(basketEndpoint.Parameters.Keys.Contains("releaseId"), Is.False);
 		}
-	}
+
+		internal class BasketApiUri : IApiUri<Basket>
+		{
+			public string Uri { get; private set; }
+			public string SecureUri { get; private set; }
+		}}
 }

@@ -3,7 +3,7 @@ using SevenDigital.Api.Wrapper.Utility.Http;
 
 namespace SevenDigital.Api.Wrapper.EndpointResolution
 {
-	public interface IRequestCoordinator
+	public interface IRequestCoordinator<T>
 	{
 		Response HitEndpoint(EndPointInfo endPointInfo);
 		void HitEndpointAsync(EndPointInfo endPointInfo, Action<Response> callback);

@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using SevenDigital.Api.Schema;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 {
@@ -10,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			Status status = Api<Status>.Create.Please();
+			Status status = FluentApiFactory.CreateFluentApi<Status>().Please();
 
 			Assert.That(status, Is.Not.Null);
 			Assert.That(status.ServerTime.Day, Is.EqualTo(DateTime.Now.Day));

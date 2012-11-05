@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Territories;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEndpoint
 {
@@ -23,8 +24,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		[Test]
 		public void Can_hit_fluent_endpoint_for_checkout_restrictions_with_checkout_allowed()
 		{
-			var restrictions = Api<GeoRestrictions>
-				.Create
+			var restrictions = FluentApiFactory.CreateFluentApi<GeoRestrictions>()
 				.WithIpAddress("84.45.95.241")
 				.WithParameter("shopId", "34")
 				.Please();
@@ -36,8 +36,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		[Test]
 		public void Can_hit_fluent_endpoint_for_checkout_restrictions_with_checkout_not_allowed()
 		{
-			var restrictions = Api<GeoRestrictions>
-				.Create
+			var restrictions = FluentApiFactory.CreateFluentApi<GeoRestrictions>()
 				.WithIpAddress("1.2.3.4")
 				.WithParameter("shopId", "34")
 				.Please();
@@ -49,8 +48,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		[Test]
 		public void Can_hit_fluent_endpoint_for_territories_checkout_restrictions_with_ip_only()
 		{
-			var restrictions = Api<GeoRestrictions>
-				.Create
+			var restrictions = FluentApiFactory.CreateFluentApi<GeoRestrictions>()
 				.WithIpAddress("84.45.95.241")
 				.Please();
 
@@ -61,8 +59,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		[Test]
 		public void Can_hit_countries_list_endpoint()
 		{
-			var countries = Api<Countries>
-				.Create
+			var countries = FluentApiFactory.CreateFluentApi<Countries>()
 				.Please();
 
 			Assert.That(countries, Is.Not.Null);
@@ -73,8 +70,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		[Test]
 		public void Countries_list_contains_gb()
 		{
-			var countries = Api<Countries>
-				.Create
+			var countries = FluentApiFactory.CreateFluentApi<Countries>()
 				.Please();
 
 			var gb = countries.CountryItems.First(c => c.Code == "GB");
@@ -87,8 +83,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TerritoriesEn
 		[Test]
 		public void Countries_list_contains_gb_language()
 		{
-			var countries = Api<Countries>
-				.Create
+			var countries = FluentApiFactory.CreateFluentApi<Countries>()
 				.Please();
 
 			var gb = countries.CountryItems.First(c => c.Code == "GB");

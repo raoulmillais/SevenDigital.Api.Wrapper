@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Pricing;
 using SevenDigital.Api.Schema.ReleaseEndpoint;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoint
 {
@@ -12,7 +13,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void Can_hit_endpoint()
 		{
 
-			var releaseTracks = Api<ReleaseTracks>.Create
+			var releaseTracks = FluentApiFactory.CreateFluentApi<ReleaseTracks>()
 				.ForReleaseId(155408)
 				.Please();
 
@@ -26,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void can_determine_if_a_track_is_free()
 		{
 
-			var releaseTracks = Api<ReleaseTracks>.Create
+			var releaseTracks = FluentApiFactory.CreateFluentApi<ReleaseTracks>()
 				.ForReleaseId(394123)
 				.Please();
 
@@ -39,7 +40,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ReleaseEndpoi
 		public void can_determine_if_a_track_is_available_separately()
 		{
 
-			var releaseTracks = Api<ReleaseTracks>.Create
+			var releaseTracks = FluentApiFactory.CreateFluentApi<ReleaseTracks>()
 				.ForReleaseId(1193196)
 				.Please();
 

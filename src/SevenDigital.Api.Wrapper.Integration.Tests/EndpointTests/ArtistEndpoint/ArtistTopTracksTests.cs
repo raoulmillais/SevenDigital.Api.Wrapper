@@ -11,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint()
 		{
-			ArtistTopTracks artist = new FluentApi<ArtistTopTracks>()
+			ArtistTopTracks artist = FluentApiFactory.CreateFluentApi<ArtistTopTracks>()
 				.WithParameter("artistId", "1")
 				.WithParameter("country", "GB")
 				.Please();
@@ -23,8 +23,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artist = Api<ArtistTopTracks>
-								.Create
+			var artist = FluentApiFactory.CreateFluentApi<ArtistTopTracks>()
 								.WithArtistId(1)
 								.WithParameter("country", "GB")
 								.Please();
@@ -37,7 +36,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		public void Can_handle_pagingerror_with_paging()
 		{
 			var ex = Assert.Throws<InputParameterException>(() =>
-				new FluentApi<ArtistTopTracks>()
+				FluentApiFactory.CreateFluentApi<ArtistTopTracks>()
 					.WithParameter("artistId", "1")
 					.WithParameter("page", "2")
 					.WithParameter("pageSize", "10")

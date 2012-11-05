@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Chart;
 using SevenDigital.Api.Schema.TrackEndpoint;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 {
@@ -13,7 +14,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		public void Can_hit_endpoint()
 		{
 
-			TrackChart release = Api<TrackChart>.Create
+			TrackChart release = FluentApiFactory.CreateFluentApi<TrackChart>()
 				.WithParameter("fromDate", "20110101")
 				.WithParameter("toDate", "20110301")
 				.WithParameter("country", "GB")
@@ -30,7 +31,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_endpoint_with_paging()
 		{
-			TrackChart artistBrowse = Api<TrackChart>.Create
+			TrackChart artistBrowse = FluentApiFactory.CreateFluentApi<TrackChart>()
 				.WithParameter("fromDate", "20090610")
 				.WithParameter("toDate", "20110101")
 				.WithParameter("page", "2")
@@ -45,8 +46,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.TrackEndpoint
 		[Test]
 		public void Can_hit_fluent_endpoint()
 		{
-			var release = Api<TrackChart>
-							.Create
+			var release = FluentApiFactory.CreateFluentApi<TrackChart>()
 							.WithToDate(new DateTime(2011, 01, 31))
 							.WithPeriod(ChartPeriod.Week)
 							.Please();

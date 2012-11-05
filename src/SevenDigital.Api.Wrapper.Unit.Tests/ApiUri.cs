@@ -1,6 +1,6 @@
 namespace SevenDigital.Api.Wrapper.Unit.Tests
 {
-	public class ApiUri : IApiUri
+	public class ApiUri<T> : IApiUri<T>
 	{
 		public string Uri
 		{

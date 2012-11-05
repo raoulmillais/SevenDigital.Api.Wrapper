@@ -25,7 +25,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_fire_requestcoordinator_with_correct_endpoint_on_resolve()
 		{
-			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var requestCoordinator = A.Fake<IRequestCoordinator<Status>>();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
 
 			new FluentApi<Status>(requestCoordinator).Please();
@@ -39,7 +39,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_fire_requestcoordinator_with_correct_methodname_on_resolve()
 		{
-			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var requestCoordinator = A.Fake<IRequestCoordinator<Status>>();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
 
 			new FluentApi<Status>(requestCoordinator).WithMethod("POST").Please();
@@ -53,7 +53,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_fire_requestcoordinator_with_correct_parameters_on_resolve()
 		{
-			var requestCoordinator = A.Fake<IRequestCoordinator>();
+			var requestCoordinator = A.Fake<IRequestCoordinator<Status>>();
 			A.CallTo(() => requestCoordinator.HitEndpoint(A<EndPointInfo>.Ignored)).Returns(stubResponse);
 
 			new FluentApi<Status>(requestCoordinator).WithParameter("artistId", "123").Please();
@@ -67,7 +67,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void Should_use_custom_http_client()
 		{
-			var fakeRequestCoordinator = A.Fake<IRequestCoordinator>();
+			var fakeRequestCoordinator = A.Fake<IRequestCoordinator<Status>>();
 			var fakeHttpClient = new FakeHttpClient();
 
 			new FluentApi<Status>(fakeRequestCoordinator).UsingClient(fakeHttpClient);
@@ -78,7 +78,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 		[Test]
 		public void should_put_payload_in_action_result()
 		{
-			var requestCoordinator = new FakeRequestCoordinator { StubPayload = stubResponse };
+			var requestCoordinator = new FakeRequestCoordinator<Status> { StubPayload = stubResponse };
 			var reset = new AutoResetEvent(false);
 
 			new FluentApi<Status>(requestCoordinator)
@@ -95,7 +95,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests
 
 		
 
-		public class FakeRequestCoordinator : IRequestCoordinator
+		public class FakeRequestCoordinator<T> : IRequestCoordinator<T>
 		{
 			public Response HitEndpoint(EndPointInfo endPointInfo)
 			{

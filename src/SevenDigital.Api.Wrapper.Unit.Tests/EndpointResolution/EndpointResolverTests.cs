@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FakeItEasy;
 using NUnit.Framework;
+using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
@@ -10,7 +11,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 	[TestFixture]
 	public class EndpointResolverTests
 	{
-		private RequestCoordinator _requestCoordinator;
+		private RequestCoordinator<object> _requestCoordinator;
 
 		[SetUp]
 		public void Setup()
@@ -18,11 +19,11 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.EndpointResolution
 			var httpClient = A.Fake<IHttpClient>();
 			A.CallTo(() => httpClient.Get(A<GetRequest>.Ignored)).Returns(new Response());
 
-			var apiUri = A.Fake<IApiUri>();
+			var apiUri = A.Fake<IApiUri<object>>();
 			A.CallTo(() => apiUri.Uri)
 				.Returns("http://uri/");
 
-			_requestCoordinator = new RequestCoordinator(httpClient, new UrlSigner(), new AppSettingsCredentials(), apiUri);
+			_requestCoordinator = new RequestCoordinator<object>(httpClient, new UrlSigner(), new AppSettingsCredentials(), apiUri);
 		}
 
 		[Test]

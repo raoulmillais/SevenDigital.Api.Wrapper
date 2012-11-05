@@ -9,7 +9,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface()
 		{
-			var artistBrowse = Api<ArtistBrowse>.Create
+			var artistBrowse = FluentApiFactory.CreateFluentApi<ArtistBrowse>()
 									.WithLetter("radio")
 									.Please();
 			
@@ -22,8 +22,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoin
 		[Test]
 		public void Can_hit_endpoint_with_fluent_interface_with_paging()
 		{
-			var artistBrowse = (ArtistBrowse)Api<ArtistBrowse>
-									.Create
+			var artistBrowse = (ArtistBrowse)FluentApiFactory.CreateFluentApi<ArtistBrowse>()
 									.WithLetter("radio")
 									.WithPageNumber(2)
 									.WithPageSize(20)

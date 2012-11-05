@@ -4,6 +4,7 @@ using System.Threading;
 using System.Xml;
 using FakeItEasy;
 using NUnit.Framework;
+using SevenDigital.Api.Schema;
 using SevenDigital.Api.Wrapper.EndpointResolution;
 using SevenDigital.Api.Wrapper.EndpointResolution.OAuth;
 using SevenDigital.Api.Wrapper.Utility.Http;
@@ -18,7 +19,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 		private readonly string _consumerKey = new AppSettingsCredentials().ConsumerKey;
 		private IHttpClient _httpClient;
-		private RequestCoordinator _requestCoordinator;
+		private RequestCoordinator<Status> _requestCoordinator;
 		private IUrlSigner _urlSigner;
 
 		[SetUp]
@@ -26,7 +27,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 		{
 			_httpClient = A.Fake<IHttpClient>();
 			_urlSigner = A.Fake<IUrlSigner>();
-			_requestCoordinator = new RequestCoordinator(_httpClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
+			_requestCoordinator = new RequestCoordinator<Status>(_httpClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri<Status>>.Instance);
 		}
 
 		[Test]
@@ -115,7 +116,7 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 					Body = SERVICE_STATUS
 				});
 
-			var endpointResolver = new RequestCoordinator(fakeClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri>.Instance);
+			var endpointResolver = new RequestCoordinator<Status>(fakeClient, _urlSigner, EssentialDependencyCheck<IOAuthCredentials>.Instance, EssentialDependencyCheck<IApiUri<Status>>.Instance);
 
 			var reset = new AutoResetEvent(false);
 
@@ -142,12 +143,12 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 
 			Given_a_urlresolver_that_returns_valid_xml();
 
-			var apiUri = A.Fake<IApiUri>();
+			var apiUri = A.Fake<IApiUri<Status>>();
 
 			A.CallTo(() => apiUri.Uri).Returns(expectedApiUri);
 
 			IOAuthCredentials oAuthCredentials = EssentialDependencyCheck<IOAuthCredentials>.Instance;
-			var endpointResolver = new RequestCoordinator(_httpClient, _urlSigner, oAuthCredentials, apiUri);
+			var endpointResolver = new RequestCoordinator<Status>(_httpClient, _urlSigner, oAuthCredentials, apiUri);
 
 			var endPointState = new EndPointInfo
 				{
@@ -191,6 +192,19 @@ namespace SevenDigital.Api.Wrapper.Unit.Tests.Utility.Http
 						StatusCode = HttpStatusCode.OK,
 						Body = SERVICE_STATUS
 					});
+		}
+
+		internal class StatusApiUri : IApiUri<Status>
+		{
+			public string Uri
+			{
+				get { return "http://api.7digital.com/1.2"; }
+			}
+
+			public string SecureUri
+			{
+				get { return "http://api.7digital.com/1.2"; }
+			}
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using SevenDigital.Api.Schema.Merchandising;
+using SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.ArtistEndpoint;
 
 namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.MerchandisingEndpoint
 {
@@ -10,8 +11,7 @@ namespace SevenDigital.Api.Wrapper.Integration.Tests.EndpointTests.Merchandising
 		[Test, Ignore("In beta testing")]
 		public void Can_hit_fluent_endpoint_for_merchandising()
 		{
-			var merchList = Api<MerchandisingList>
-				.Create
+			var merchList = FluentApiFactory.CreateFluentApi<MerchandisingList>()
 				.WithKey("tabAlbums")
 				.WithParameter("shopId", "34")
 				.Please();
